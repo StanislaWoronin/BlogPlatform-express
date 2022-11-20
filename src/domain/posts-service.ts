@@ -7,8 +7,9 @@ import {PostConstructor,
         PostViewModel} from "../types/posts-constructor";
 import {ContentPageConstructor} from "../types/contentPage-constructor";
 import {paginationContentPage} from "../paginationContentPage";
-import {postOutputType} from "../dataMapping/toPostOutputData";
+import {postOutputBeforeCreate, postOutputType} from "../dataMapping/toPostOutputData";
 import {injectable} from "inversify";
+import {UsersRepository} from "../repositories/users-repository";
 
 @injectable()
 export class PostsService {
@@ -16,7 +17,8 @@ export class PostsService {
                 protected likesService: LikesService,
                 protected postsRepository: PostsRepository,
                 protected blogsRepository: BlogsRepository,
-                protected likesRepository: LikesRepository) {}
+                protected likesRepository: LikesRepository,
+                protected usersRepository: UsersRepository) {}
 
     async createNewPost(title: string,
                         shortDescription: string,
@@ -33,13 +35,13 @@ export class PostsService {
             new Date().toISOString()
         )
 
-        const createdNewPost = await this.postsRepository.createNewPost(newPost)
+        const createdPost = await this.postsRepository.createNewPost(newPost)
 
-        if (!createdNewPost) {
+        if (!createdPost) {
             return null
         }
 
-        return postOutputType(createdNewPost)
+        return postOutputBeforeCreate(createdPost)
     }
 
     async giveBlogName(id: string): Promise<string> {
@@ -90,7 +92,13 @@ export class PostsService {
 
     async updateLikesInfo(userId: string, commentId: string, likeStatus: string): Promise<boolean> {
         const addedAt = new Date().toISOString()
-        return await this.likesRepository.updateUserReaction(commentId, userId, likeStatus, addedAt)
+        const login = await this.usersRepository.getLogin(userId)
+
+        if (!login) {
+            return false
+        }
+
+        return await this.likesRepository.updateUserReaction(commentId, userId, login!, likeStatus, addedAt)
     }
 
     async deletePostById(id: string): Promise<boolean> {

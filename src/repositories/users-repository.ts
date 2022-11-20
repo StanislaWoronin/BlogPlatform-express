@@ -23,12 +23,22 @@ export class UsersRepository {
 
         return UserScheme
             .find({$and: [{login: {$regex: searchLoginTerm, $options: 'i'}},
-                        {email: {$regex: searchEmailTerm, $options: 'i'}}]},
-                {projection: {_id: false, passwordHash: false, passwordSalt: false}})
+                          {email: {$regex: searchEmailTerm, $options: 'i'}}]},
+                          {_id: false, passwordHash: false, passwordSalt: false})
             .sort({[sortBy]: sortDirection === 'asc' ? 1 : -1})
             .skip(giveSkipNumber(pageNumber, pageSize))
             .limit(Number(pageSize))
             .lean()
+    }
+
+    async getLogin(id: string): Promise<string | null> {
+        try {
+            return UserScheme
+                .findOne({id}, {_id: false, email: false, passwordHash: false, passwordSalt: false, createdAt: false})
+                .lean()
+        } catch (e) {
+            return null
+        }
     }
 
     async giveTotalCount(searchLoginTerm: string, searchEmailTerm: string): Promise<number> {
