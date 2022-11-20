@@ -60,7 +60,7 @@ export class PostsService {
                         pageSize: string,
                         blogId?: string,
                         token?: string): Promise<ContentPageConstructor> {
-        console.log(blogId)
+
         const postsDB = await this.postsRepository.givePosts(sortBy, sortDirection, pageNumber, pageSize, blogId)
         const totalCount = await this.postsRepository.giveTotalCount(blogId)
 

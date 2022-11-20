@@ -28,7 +28,7 @@ export class PostsController {
                 req.query.pageNumber,
                 req.query.pageSize,
                 req.headers.authorization)
-
+        // TODO посмотреть где ошибка
         if (!pageWithPosts) {
             return res.sendStatus(404)
         }
