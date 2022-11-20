@@ -7,7 +7,9 @@ import {paginationContentPage} from "../paginationContentPage";
 import {_generateHash} from "../helperFunctions";
 import {userDBtoUser, usersOutputType} from "../dataMapping/toUserOutputData";
 import {AuthService} from "./auth-service";
+import {injectable} from "inversify";
 
+@injectable()
 export class UsersService {
     constructor(protected usersRepository: UsersRepository,
                 protected authService: AuthService) {}

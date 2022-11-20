@@ -3,7 +3,9 @@ import {BlogConstructor} from "../types/blogs-constructor";
 import {ContentPageConstructor} from "../types/contentPage-constructor";
 import {paginationContentPage} from "../paginationContentPage";
 import {blogOutputType} from "../dataMapping/toBlogOutputData";
+import {injectable} from "inversify";
 
+@injectable()
 export class BlogsService {
     constructor(protected blogsRepository: BlogsRepository) {}
 

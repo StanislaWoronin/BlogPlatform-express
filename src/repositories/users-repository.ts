@@ -1,7 +1,9 @@
 import {UserScheme} from "../schemes/user-scheme";
 import {UserDBConstructor, UsersType} from "../types/user-constructor";
 import {giveSkipNumber} from "../helperFunctions";
+import {injectable} from "inversify";
 
+@injectable()
 export class UsersRepository {
     async createNewUser(newUser: UserDBConstructor): Promise<UserDBConstructor | null> {
         try {

@@ -8,7 +8,9 @@ import {LikesRepository} from "../repositories/likes-repository";
 import {PostsRepository} from "../repositories/posts-repository";
 import {SecurityRepository} from "../repositories/security-repository";
 import {UsersRepository} from "../repositories/users-repository";
+import {injectable} from "inversify";
 
+@injectable()
 export class TestingController {
     constructor(protected blogsRepository: BlogsRepository,
                 protected commentsRepository: CommentsRepository,

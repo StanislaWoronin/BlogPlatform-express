@@ -1,16 +1,20 @@
 import {Router} from "express";
+import {container} from "../composition-root";
+import {UsersController} from "../controllers/users-controller";
 import {deleteUsersRouter,
         getUsersRouterMiddleware,
         postUsersRouterMiddleware} from "../middlewares/usersRouter-middleware";
-import {userController} from "../composition-root";
 
 export const usersRouter = Router({})
 
+//const usersController = ioc.getInstance<UsersController>(UsersController)
+const usersController = container.resolve(UsersController)
+
 usersRouter.post('/',
-    ...postUsersRouterMiddleware, userController.createUser.bind(userController))
+    ...postUsersRouterMiddleware, usersController.createUser.bind(usersController))
 
 usersRouter.get('/',
-    ...getUsersRouterMiddleware, userController.getUsersPage.bind(userController))
+    ...getUsersRouterMiddleware, usersController.getUsersPage.bind(usersController))
 
 usersRouter.delete('/:id',
-    ...deleteUsersRouter, userController.deleteUserById.bind(userController))
+    ...deleteUsersRouter, usersController.deleteUserById.bind(usersController))

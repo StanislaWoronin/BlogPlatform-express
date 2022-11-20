@@ -8,7 +8,9 @@ import {UserAccountConstructor} from "../types/userAccount-constructor";
 import {_generateHash} from "../helperFunctions";
 import {UserDBConstructor} from "../types/user-constructor";
 import {EmailConfirmationConstructor} from "../types/emailConfirmation-constructor";
+import {injectable} from "inversify";
 
+@injectable()
 export class AuthService {
     constructor(protected usersRepository: UsersRepository) {}
 
@@ -42,7 +44,7 @@ export class AuthService {
             return null
         }
 
-        const info = await emailsManager.sendConfirmationEmail(email, userAccount.emailConfirmation.confirmationCode)
+        await emailsManager.sendConfirmationEmail(email, userAccount.emailConfirmation.confirmationCode)
         return userAccount
     }
 

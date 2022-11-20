@@ -1,5 +1,7 @@
 import {LikesScheme} from "../schemes/likes-scheme";
+import {injectable} from "inversify";
 
+@injectable()
 export class LikesRepository {
     async giveUserReaction(parentId: string, userId: string) {
         try {

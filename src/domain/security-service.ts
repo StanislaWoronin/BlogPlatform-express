@@ -4,7 +4,9 @@ import {SecurityRepository} from "../repositories/security-repository";
 import {DeviceSecurityConstructor} from "../types/deviceSecurity-constructor";
 import {activeSessionsOutputType} from "../dataMapping/toActiveSessionsOutputData";
 import {UserDeviceConstructor} from "../types/user-device-type";
+import {injectable} from "inversify";
 
+@injectable()
 export class SecurityService {
     constructor(protected jwsService: JWTService,
                 protected securityRepository: SecurityRepository) {}

@@ -1,29 +1,32 @@
 import {Router} from "express";
+import {container} from "../composition-root";
+import {PostsController} from "../controllers/posts-controller";
 import {createCommentForPostsRouterMiddleware,
         postsRouterMiddleware,
         getPostsRouterMiddleware,
         deletePostsRouterMiddleware} from "../middlewares/postsRouter-middleware";
-import {postController} from "../composition-root";
 
 export const postsRouter = Router({})
 
+//const postsController = ioc.getInstance<PostsController>(PostsController)
+const postsController = container.resolve(PostsController)
 
 postsRouter.get('/',
-    ...getPostsRouterMiddleware,postController.getPostsPage.bind(postController))
+    ...getPostsRouterMiddleware,postsController.getPostsPage.bind(postsController))
 
-postsRouter.get('/:id', postController.getPostByPostId.bind(postController))
+postsRouter.get('/:id', postsController.getPostByPostId.bind(postsController))
 
 postsRouter.get('/:id/comments',
-    ...getPostsRouterMiddleware, postController.getCommentsPageByPostId.bind(postController))
+    ...getPostsRouterMiddleware, postsController.getCommentsPageByPostId.bind(postsController))
 
 postsRouter.post('/',
-    postsRouterMiddleware, postController.createPost.bind(postController))
+    postsRouterMiddleware, postsController.createPost.bind(postsController))
 
 postsRouter.post('/:id/comments',
-    createCommentForPostsRouterMiddleware, postController.createCommentByPostId.bind(postController))
+    createCommentForPostsRouterMiddleware, postsController.createCommentByPostId.bind(postsController))
 
 postsRouter.put('/:id',
-    postsRouterMiddleware, postController.updatePostByPostId.bind(postController))
+    postsRouterMiddleware, postsController.updatePostByPostId.bind(postsController))
 
 postsRouter.delete('/:id',
-    deletePostsRouterMiddleware, postController.deletePostByPostId.bind(postController))
+    deletePostsRouterMiddleware, postsController.deletePostByPostId.bind(postsController))

@@ -1,7 +1,9 @@
 import {BlogSchema} from "../schemes/blog-scheme";
 import {BlogsConstructor, BlogConstructor} from "../types/blogs-constructor";
 import {giveSkipNumber} from "../helperFunctions";
+import {injectable} from "inversify";
 
+@injectable()
 export class BlogsRepository {
     async createNewBlog(newBlog: BlogConstructor): Promise<BlogConstructor | null> {
         try {

@@ -5,8 +5,9 @@ import {URIParameters} from "../models/URIParameters";
 import {CommentConstructor} from "../types/comment-constructor";
 import {RequestWithParams, RequestWithParamsAndBody} from "../types/request-types";
 import {LikeStatusConstructor} from "../types/likeStatus-constructor";
+import {injectable} from "inversify";
 
-
+@injectable()
 export class CommentsController {
     constructor(protected commentsService: CommentsService,
                 protected usersService: UsersService) {}

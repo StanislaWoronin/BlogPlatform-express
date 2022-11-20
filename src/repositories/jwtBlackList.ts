@@ -1,5 +1,7 @@
 import {TokenBlackListScheme} from "../schemes/tokenBlackList-scheme";
+import {injectable} from "inversify";
 
+@injectable()
 export class JWTBlackList {
     async addTokenInBlackList(refreshToken: string) {
         return TokenBlackListScheme.create({refreshToken})

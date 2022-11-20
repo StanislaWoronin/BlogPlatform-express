@@ -1,13 +1,9 @@
+import "reflect-metadata"
 import {BlogsRepository} from "./repositories/blogs-repository";
 import {CommentsRepository} from "./repositories/comments-repository";
-import {EmailConfirmationRepository} from "./repositories/emailConfirmation-repository";
-import {IpAddressRepository} from "./repositories/ipAddress-repository";
-import {JWTBlackList} from "./repositories/jwtBlackList";
-import {LikesRepository} from "./repositories/likes-repository";
 import {PostsRepository} from "./repositories/posts-repository";
 import {SecurityRepository} from "./repositories/security-repository";
 import {UsersRepository} from "./repositories/users-repository";
-import {JWTService} from "./application/jws-service";
 import {AuthService} from "./domain/auth-service";
 import {BlogsService} from "./domain/blogs-service";
 import {CommentsService} from "./domain/comments-servise";
@@ -21,50 +17,112 @@ import {CommentsController} from "./controllers/comments-controller";
 import {PostsController} from "./controllers/posts-controller";
 import {SecurityController} from "./controllers/security-controller";
 import {TestingController} from "./controllers/testing-controller";
+import {Container} from "inversify";
 
-export const blogsRepository = new BlogsRepository()
-const commentsRepository = new CommentsRepository()
-export const emailConfirmationRepository = new EmailConfirmationRepository()
-export const ipAddressRepository = new IpAddressRepository()
-const jwtBlackList = new JWTBlackList()
-export const likesRepository = new LikesRepository()
-const postsRepository = new PostsRepository()
-const securityRepository = new SecurityRepository()
-export const usersRepository = new UsersRepository()
+// const objects: any = []
+//
+// const blogsRepository = new BlogsRepository()
+// const commentsRepository = new CommentsRepository()
+// const emailConfirmationRepository = new EmailConfirmationRepository()
+// const ipAddressRepository = new IpAddressRepository()
+// const jwtBlackList = new JWTBlackList()
+// const likesRepository = new LikesRepository()
+// const postsRepository = new PostsRepository()
+// const securityRepository = new SecurityRepository()
+// const usersRepository = new UsersRepository()
+//
+// objects.push(
+//     blogsRepository,
+//     commentsRepository,
+//     emailConfirmationRepository,
+//     ipAddressRepository,
+//     jwtBlackList,
+//     likesRepository,
+//     postsRepository,
+//     securityRepository,
+//     usersRepository)
+//
+// const authService = new AuthService(usersRepository)
+// const blogsService = new BlogsService(blogsRepository)
+// const jwtService = new JWTService(jwtBlackList)
+// const commentsService = new CommentsService(
+//     jwtService,
+//     commentsRepository,
+//     likesRepository)
+// const postsService = new PostsService(postsRepository, blogsRepository)
+// const securityService = new SecurityService(
+//     jwtService,
+//     securityRepository)
+// const usersService = new UsersService(usersRepository, authService)
+//
+// objects.push(
+//     authService,
+//     blogsService,
+//     jwtService,
+//     commentsService,
+//     postsService,
+//     securityService,
+//     usersService)
+//
+// const authController = new AuthController(
+//     authService,
+//     jwtService,
+//     securityService,
+//     usersService)
+// const blogsController = new BlogsController(blogsService, postsService)
+// const commentsController = new CommentsController(commentsService, usersService)
+// const postController = new PostsController(postsService, commentsService)
+// const securityController = new SecurityController(securityService)
+// const testingController = new TestingController(
+//     blogsRepository,
+//     commentsRepository,
+//     emailConfirmationRepository,
+//     ipAddressRepository,
+//     jwtBlackList,
+//     likesRepository,
+//     postsRepository,
+//     securityRepository,
+//     usersRepository)
+// const usersController = new UsersController(usersService)
+//
+// objects.push(
+//     authController,
+//     blogsController,
+//     commentsController,
+//     postController,
+//     securityController,
+//     testingController,
+//     usersController)
+//
+// export const ioc = {
+//     getInstance<T>(ClassType: any) {
+//         const targetInstance = objects.find((o: any) => o instanceof ClassType)
+//         return targetInstance as T
+//     }
+// }
 
-const authService = new AuthService(usersRepository)
-const blogsService = new BlogsService(blogsRepository)
-export const jwtService = new JWTService(jwtBlackList)
-export const commentsService = new CommentsService(
-    jwtService,
-    commentsRepository,
-    likesRepository)
-const postsService = new PostsService(postsRepository, blogsRepository)
-export const securityService = new SecurityService(
-    jwtService,
-    securityRepository)
-export const usersService = new UsersService(usersRepository, authService)
+export const container = new Container()
+container.bind(AuthController).toSelf()
+container.bind<AuthService>(AuthService).toSelf()
 
-export const authController = new AuthController(
-    authService,
-    jwtService,
-    securityService,
-    usersService)
-export const blogsController = new BlogsController(blogsService, postsService)
-export const commentController = new CommentsController(commentsService, usersService)
-export const postController = new PostsController(postsService, commentsService)
-export const securityController = new SecurityController(securityService)
-export const testingController = new TestingController(
-    blogsRepository,
-    commentsRepository,
-    emailConfirmationRepository,
-    ipAddressRepository,
-    jwtBlackList,
-    likesRepository,
-    postsRepository,
-    securityRepository,
-    usersRepository)
-export const userController = new UsersController(usersService)
+container.bind(BlogsController).to(BlogsController)
+container.bind<BlogsService>(BlogsService).to(BlogsService)
+container.bind<BlogsRepository>(BlogsRepository).to(BlogsRepository)
 
+container.bind(CommentsController).to(CommentsController)
+container.bind<CommentsService>(CommentsService).to(CommentsService)
+container.bind<CommentsRepository>(CommentsRepository).to(CommentsRepository)
 
+container.bind(PostsController).to(PostsController)
+container.bind<PostsService>(PostsService).to(PostsService)
+container.bind<PostsRepository>(PostsRepository).to(PostsRepository)
 
+container.bind(SecurityController).to(SecurityController)
+container.bind<SecurityService>(SecurityService).to(SecurityService)
+container.bind<SecurityRepository>(SecurityRepository).to(SecurityRepository)
+
+container.bind(TestingController).to(TestingController)
+
+container.bind(UsersController).to(UsersController)
+container.bind<UsersService>(UsersService).to(UsersService)
+container.bind<UsersRepository>(UsersRepository).to(UsersRepository)

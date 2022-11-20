@@ -1,6 +1,8 @@
 import {Request, Response} from "express";
 import {SecurityService} from "../domain/security-service";
+import {injectable} from "inversify";
 
+@injectable()
 export class SecurityController {
     constructor(protected securityService: SecurityService) {}
 

@@ -13,7 +13,9 @@ import {PostsCreateNewPost} from "../models/postsCreateNewPost";
 import {PostsUpdatePost} from "../models/postsUpdatePost";
 import {QueryParameters} from "../models/queryParameters";
 import {URIParameters} from "../models/URIParameters";
+import {injectable} from "inversify";
 
+@injectable()
 export class PostsController {
     constructor(protected postsService: PostsService,
                 protected commentsService: CommentsService) {}

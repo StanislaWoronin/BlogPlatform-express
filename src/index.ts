@@ -29,7 +29,7 @@ app.use('/testing', testingRouter)
 app.use('/users', usersRouter)
 
 app.get('/', (req:Request, res: Response) => {
-    res.send('Hello World!')
+    res.sendStatus(404)
 })
 
 const startApp = async () => {

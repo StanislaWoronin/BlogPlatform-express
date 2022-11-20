@@ -14,7 +14,9 @@ import {BlogsCreateNewPost} from "../models/blogCreateNewPost";
 import {BlogsUpdateBlog} from "../models/blogsUpdateBlog";
 import {QueryParameters} from "../models/queryParameters";
 import {URIParameters} from "../models/URIParameters";
+import {injectable} from "inversify";
 
+@injectable()
 export class BlogsController {
     constructor(protected blogsService: BlogsService,
                 protected postsService: PostsService) {}

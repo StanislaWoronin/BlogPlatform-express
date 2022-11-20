@@ -1,6 +1,8 @@
 import {EmailConfirmationScheme} from "../schemes/emailConfirm-scheme";
 import {EmailConfirmationConstructor} from "../types/emailConfirmation-constructor";
+import {injectable} from "inversify";
 
+@injectable()
 export class EmailConfirmationRepository {
     async createEmailConfirmation(emailConfirmation: EmailConfirmationConstructor) {
         try {

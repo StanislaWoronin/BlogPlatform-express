@@ -1,7 +1,10 @@
 import jwt from 'jsonwebtoken'
 import {settings} from "../settings";
 import {JWTBlackList} from "../repositories/jwtBlackList";
+import {injectable} from "inversify";
+import "reflect-metadata"
 
+@injectable()
 export class JWTService {
     constructor(protected jwtBlackList: JWTBlackList) {}
 

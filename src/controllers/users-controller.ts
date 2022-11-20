@@ -7,7 +7,9 @@ import {RequestWithBody,
 import {QueryParameters} from "../models/queryParameters";
 import {CreateNewUser} from "../models/createNewUser";
 import {URIParameters} from "../models/URIParameters";
+import {injectable} from "inversify";
 
+@injectable()
 export class UsersController {
     constructor(protected usersService: UsersService) {}
 

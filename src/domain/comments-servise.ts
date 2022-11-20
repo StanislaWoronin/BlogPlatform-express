@@ -1,18 +1,15 @@
 import {v4 as uuidv4} from 'uuid';
-import {JWTService} from "../application/jws-service";
 import {CommentsRepository} from "../repositories/comments-repository";
 import {CommentBDConstructor, CommentsBDType, CommentsViewModel} from "../types/comment-constructor";
 import {ContentPageConstructor} from "../types/contentPage-constructor";
 import {UserDBConstructor} from "../types/user-constructor";
 import {paginationContentPage} from "../paginationContentPage";
-import {commentOutputDataForAuthorisationUser} from "../dataMapping/commentOutputDataForAuthorisationUser";
-import {
-    commentOutputBeforeCreate,
-    commentOutputDataForNotAuthorisationUser
-} from "../dataMapping/getCommentForNotAuthUserOutputData";
 import {LikesRepository} from "../repositories/likes-repository";
-import {jwtService, likesRepository} from "../composition-root";
+import {JWTService} from "../application/jws-service";
+import {injectable} from "inversify";
+import {commentOutputBeforeCreate} from "../dataMapping/commentOutputBeforeCreate";
 
+@injectable()
 export class CommentsService {
     constructor(protected jwtService: JWTService,
                 protected commentsRepository: CommentsRepository,
@@ -64,12 +61,6 @@ export class CommentsService {
         const userId = await this.getUserIdFromToken(token)
         const comments = await Promise.all(commentsDB.map(async c => await this.addLikesInfoForComment(c, userId)))
 
-        // const test = []
-        // for (const c of commentsDB){
-        //     const comment = await this.addLikesInfoForComment(c, userId)
-        //     test.push(comment)
-        // }
-
         return paginationContentPage(pageNumber, pageSize, comments, totalCount)
     }
 
@@ -84,12 +75,12 @@ export class CommentsService {
     private async addLikesInfoForComment (comment: CommentBDConstructor, userId: string | null) {
         let reaction = 'None'
         if (userId) {
-            const result = await likesRepository.giveUserReaction(comment.id, userId)
+            const result = await this.likesRepository.giveUserReaction(comment.id, userId)
             if (result) reaction = result.status
         }
 
-        const likesCount = await likesRepository.getLikeReactionsCount(comment.id)
-        const dislikesCount = await likesRepository.getDislikeReactionsCount(comment.id)
+        const likesCount = await this.likesRepository.getLikeReactionsCount(comment.id)
+        const dislikesCount = await this.likesRepository.getDislikeReactionsCount(comment.id)
 
         return {
             id: comment.id,
@@ -109,7 +100,7 @@ export class CommentsService {
         let userId
         if (!token) userId = null
         else {
-            const payload = await jwtService.giveTokenPayload(token.split(' ')[1])
+            const payload = await this.jwtService.giveTokenPayload(token.split(' ')[1])
             userId = payload.userId
         }
         return userId

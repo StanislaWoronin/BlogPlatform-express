@@ -1,6 +1,10 @@
 import {NextFunction, Request, Response} from "express";
-import {jwtService, usersService} from "../../composition-root";
+import {container} from "../../composition-root";
+import {JWTService} from "../../application/jws-service";
+import {UsersService} from "../../domain/users-service";
 
+const jwtService = container.resolve(JWTService)
+const usersService = container.resolve(UsersService)
 
 export const authentication = async (req: Request, res: Response, next: NextFunction) => {
 

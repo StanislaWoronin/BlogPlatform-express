@@ -6,7 +6,9 @@ import {emailConfirmationRepository} from "../repositories/emailConfirmation-rep
 import {emailsManager} from "../managers/email-manager";
 import {AuthService} from "../domain/auth-service";
 import {UsersService} from "../domain/users-service";
+import {injectable} from "inversify";
 
+@injectable()
 export class AuthController {
     constructor(protected authService: AuthService,
                 protected jwsService: JWTService,

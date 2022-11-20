@@ -1,5 +1,7 @@
 import {IpAddressScheme} from "../schemes/ipAddress-scheme";
+import {injectable} from "inversify";
 
+@injectable()
 export class IpAddressRepository {
     async createNewConnection(ip: string, endpoint: string, connectionAt: number) {
         return IpAddressScheme.create({ipAddress: ip, endpoint, connectionAt})

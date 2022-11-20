@@ -1,7 +1,10 @@
 import {Request, Response, NextFunction} from "express";
 import bcrypt from "bcrypt";
-import {usersRepository} from "../../composition-root";
 import {UserDBConstructor} from "../../types/user-constructor";
+import {container} from "../../composition-root";
+import {UsersRepository} from "../../repositories/users-repository";
+
+const usersRepository = container.resolve(UsersRepository)
 
 export const checkCredential = async (req: Request, res: Response, next: NextFunction) => {
 

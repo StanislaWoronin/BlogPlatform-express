@@ -1,5 +1,8 @@
 import {body} from "express-validator";
-import {blogsRepository} from "../../composition-root";
+import {container} from "../../composition-root";
+import {BlogsRepository} from "../../repositories/blogs-repository";
+
+const blogsRepository = container.resolve(BlogsRepository)
 
 export const titleValidation = body('title').isString().trim().isLength({min: 3, max: 30})
 export const shortDescriptionValidation = body('shortDescription').isString().trim().isLength({min: 3, max: 100})
@@ -16,4 +19,4 @@ export const blogIdValidation = body('blogId').isString()
         return true
     })
 
-export const bodyPostValidationForPostsRouter = [titleValidation, shortDescriptionValidation, contentValidation, blogIdValidation]
+//export const bodyPostValidationForPostsRouter = [titleValidation, shortDescriptionValidation, contentValidation, blogIdValidation]

@@ -1,5 +1,8 @@
 import {NextFunction, Request, Response} from "express";
-import {usersRepository} from "../../composition-root";
+import {container} from "../../composition-root";
+import {UsersRepository} from "../../repositories/users-repository";
+
+const usersRepository = container.resolve(UsersRepository)
 
 export const loginOrEmailExistValidation = async (req: Request, res: Response, next: NextFunction) => {
     const loginExist = await usersRepository.giveUserByLoginOrEmail(req.body.login)

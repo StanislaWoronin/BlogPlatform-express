@@ -2,10 +2,11 @@ import {PostsRepository} from "../repositories/posts-repository";
 import {BlogsRepository} from "../repositories/blogs-repository";
 import {PostConstructor} from "../types/posts-constructor";
 import {ContentPageConstructor} from "../types/contentPage-constructor";
-
 import {paginationContentPage} from "../paginationContentPage";
 import {postOutputType} from "../dataMapping/toPostOutputData";
+import {injectable} from "inversify";
 
+@injectable()
 export class PostsService {
     constructor(protected postsRepository: PostsRepository,
                 protected blogsRepository: BlogsRepository) {}

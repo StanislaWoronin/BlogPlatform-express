@@ -1,4 +1,6 @@
 import {Router} from "express";
+import {container} from "../composition-root";
+import {AuthController} from "../controllers/auth-controller";
 import {limiterAndEmailValidation,
         getAuthRouterMiddleware,
         postAuthRouterMiddleware,
@@ -6,9 +8,11 @@ import {limiterAndEmailValidation,
         limiterAndPasswordValidation} from "../middlewares/authRouter-middleware";
 import {ipAddressLimiter} from "../middlewares/validation-middleware/ipAddressLimiter";
 import {refreshTokenValidation} from "../middlewares/validation-middleware/refreshToken-validation";
-import {authController} from "../composition-root";
 
 export const authRouter = Router({})
+
+//const authController = ioc.getInstance<AuthController>(AuthController)
+const authController = container.resolve(AuthController)
 
 authRouter.get('/me',
     getAuthRouterMiddleware, authController.aboutMe.bind(authController))

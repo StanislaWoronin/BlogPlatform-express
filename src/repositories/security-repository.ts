@@ -1,6 +1,8 @@
 import {SecurityScheme} from "../schemes/security-scheme";
 import {DeviceSecurityConstructor} from "../types/deviceSecurity-constructor";
+import {injectable} from "inversify";
 
+@injectable()
 export class SecurityRepository {
     async createUserDevice(createDevice: DeviceSecurityConstructor) {
         try {
@@ -9,14 +11,6 @@ export class SecurityRepository {
             return null
         }
     }
-
-    // async giveLastSeveralSessions(ipAddress: string, sessionsСount: number) {
-    //     return SecurityScheme
-    //         .find({'userDevice.ipAddress': ipAddress})
-    //         .sort({['userDevice.iat']: 'desc'})
-    //         .limit(sessionsСount)
-    //         .lean()
-    // }
 
     async giveAllActiveSessions(userId: string) {
         return SecurityScheme

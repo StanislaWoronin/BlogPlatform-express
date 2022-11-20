@@ -1,7 +1,9 @@
 import {CommentsSchema} from "../schemes/comments-scheme";
 import {CommentBDConstructor, CommentsBDType} from "../types/comment-constructor";
 import {giveSkipNumber} from "../helperFunctions";
+import {injectable} from "inversify";
 
+@injectable()
 export class CommentsRepository {
     async createNewComment(newComment: CommentBDConstructor): Promise<CommentBDConstructor | null> {
         try {
