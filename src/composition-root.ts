@@ -1,12 +1,17 @@
 import "reflect-metadata"
 import {BlogsRepository} from "./repositories/blogs-repository";
 import {CommentsRepository} from "./repositories/comments-repository";
+import {EmailConfirmationRepository} from "./repositories/emailConfirmation-repository";
+import {JWTBlackList} from "./repositories/jwtBlackList";
+import {IpAddressRepository} from "./repositories/ipAddress-repository";
+import {LikesRepository} from "./repositories/likes-repository";
 import {PostsRepository} from "./repositories/posts-repository";
 import {SecurityRepository} from "./repositories/security-repository";
 import {UsersRepository} from "./repositories/users-repository";
 import {AuthService} from "./domain/auth-service";
 import {BlogsService} from "./domain/blogs-service";
 import {CommentsService} from "./domain/comments-servise";
+import {JWTService} from "./application/jws-service";
 import {PostsService} from "./domain/posts-service";
 import {SecurityService} from "./domain/security-service";
 import {UsersService} from "./domain/users-service";
@@ -112,6 +117,15 @@ container.bind<BlogsRepository>(BlogsRepository).to(BlogsRepository)
 container.bind(CommentsController).to(CommentsController)
 container.bind<CommentsService>(CommentsService).to(CommentsService)
 container.bind<CommentsRepository>(CommentsRepository).to(CommentsRepository)
+
+container.bind<EmailConfirmationRepository>(EmailConfirmationRepository).to(EmailConfirmationRepository)
+
+container.bind<IpAddressRepository>(IpAddressRepository).to(IpAddressRepository)
+
+container.bind<JWTService>(JWTService).to(JWTService)
+container.bind<JWTBlackList>(JWTBlackList).to(JWTBlackList)
+
+container.bind<LikesRepository>(LikesRepository).to(LikesRepository)
 
 container.bind(PostsController).to(PostsController)
 container.bind<PostsService>(PostsService).to(PostsService)

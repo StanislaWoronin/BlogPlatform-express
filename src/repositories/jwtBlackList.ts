@@ -21,5 +21,3 @@ export class JWTBlackList {
         }
     }
 }
-
-export const jwtBlackList = new JWTBlackList()
