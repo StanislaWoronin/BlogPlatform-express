@@ -39,7 +39,7 @@ export class LikesRepository {
         return LikesScheme.countDocuments({parentId, status: 'Dislike'})
     }
 
-    async updateUserReaction(commentId: string, userId: string, login: string, status: string, addedAt: string): Promise<boolean> {
+    async updateUserReaction(commentId: string, userId: string, status: string, addedAt: string, login?: string): Promise<boolean> {
         try{
             await LikesScheme.updateOne({parentId: commentId, userId, login},
                 {$set: {status, addedAt}},

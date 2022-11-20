@@ -98,7 +98,7 @@ export class PostsService {
             return false
         }
 
-        return await this.likesRepository.updateUserReaction(commentId, userId, login!, likeStatus, addedAt)
+        return await this.likesRepository.updateUserReaction(commentId, userId, likeStatus, addedAt, login!)
     }
 
     async deletePostById(id: string): Promise<boolean> {
