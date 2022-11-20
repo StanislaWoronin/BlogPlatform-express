@@ -1,10 +1,12 @@
 import {Router} from "express";
 import {container} from "../composition-root";
 import {PostsController} from "../controllers/posts-controller";
-import {createCommentForPostsRouterMiddleware,
+import {
+        createCommentForPostsRouterMiddleware,
         postsRouterMiddleware,
         getPostsRouterMiddleware,
-        deletePostsRouterMiddleware} from "../middlewares/postsRouter-middleware";
+        deletePostsRouterMiddleware, postsLikesMiddleware
+} from "../middlewares/postsRouter-middleware";
 
 export const postsRouter = Router({})
 
@@ -27,6 +29,9 @@ postsRouter.post('/:id/comments',
 
 postsRouter.put('/:id',
     postsRouterMiddleware, postsController.updatePostByPostId.bind(postsController))
+
+postsRouter.put('/:id/like-status',
+    ...postsLikesMiddleware, postsController.updateLikeStatus.bind(postsController))
 
 postsRouter.delete('/:id',
     deletePostsRouterMiddleware, postsController.deletePostByPostId.bind(postsController))

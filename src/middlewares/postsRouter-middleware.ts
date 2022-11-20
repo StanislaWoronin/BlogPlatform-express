@@ -10,8 +10,10 @@ import {pageNumberValidation,
         pageSizeValidation,
         sortByValidation,
         sortDirectionValidation} from "./validation-middleware/query-validation";
+import {likeStatusValidation} from "./validation-middleware/likeStatus-validation";
 
 export const createCommentForPostsRouterMiddleware = [authentication, commentsValidation, inputValidation]
 export const deletePostsRouterMiddleware = [authenticationGuard]
 export const getPostsRouterMiddleware = [sortByValidation, sortDirectionValidation, pageNumberValidation, pageSizeValidation, inputValidation]
 export const postsRouterMiddleware = [authenticationGuard, titleValidation, shortDescriptionValidation, contentValidation, blogIdValidation, inputValidation]
+export const postsLikesMiddleware = [authentication, likeStatusValidation, inputValidation]

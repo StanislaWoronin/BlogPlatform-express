@@ -34,4 +34,14 @@ export class JWTService {
 
         return {accessToken, refreshToken}
     }
+
+    async getUserIdFromToken (token?: string): Promise<string | null> {
+        let userId
+        if (!token) userId = null
+        else {
+            const payload = await this.giveTokenPayload(token.split(' ')[1])
+            userId = payload.userId
+        }
+        return userId
+    }
 }

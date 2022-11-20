@@ -6,4 +6,4 @@ import {likeStatusValidation} from "./validation-middleware/likeStatus-validatio
 
 export const deleteCommentByIdMiddleware = [authentication, notYourComment]
 export const updateCommentMiddleware = [authentication, notYourComment, commentsValidation, inputValidation]
-export const likeStatusMiddleware = [authentication, likeStatusValidation, inputValidation]
+export const commentsLikesMiddleware = [authentication, likeStatusValidation, inputValidation]

@@ -12,8 +12,8 @@ export class CommentsController {
     constructor(protected commentsService: CommentsService,
                 protected usersService: UsersService) {}
 
-    async getCommentByCommentId(req: RequestWithParams<URIParameters>,
-                                res: Response) {
+    async getCommentById(req: RequestWithParams<URIParameters>,
+                         res: Response) {
         const comment = await this.commentsService.giveCommentById(req.params.id, req.headers.authorization)
 
         if (!comment) {

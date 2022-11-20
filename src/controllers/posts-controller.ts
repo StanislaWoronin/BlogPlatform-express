@@ -1,4 +1,4 @@
-import {Response} from "express";
+import {Request, Response} from "express";
 import {CommentsService} from "../domain/comments-servise";
 import {PostsService} from "../domain/posts-service";
 import {ContentPageConstructor} from "../types/contentPage-constructor";
@@ -27,7 +27,8 @@ export class PostsController {
                 req.query.sortDirection,
                 req.query.pageNumber,
                 req.query.pageSize,
-                req.query.blogId)
+                req.query.blogId,
+                req.headers.authorization)
 
         if (!pageWithPosts) {
             return res.sendStatus(404)
@@ -38,7 +39,7 @@ export class PostsController {
 
     async getPostByPostId(req: RequestWithParams<URIParameters>,
                           res: Response<PostConstructor>) {
-        const post = await this.postsService.givePostById(req.params.id)
+        const post = await this.postsService.givePostById(req.params.id, req.headers.authorization)
 
         if (!post) {
             return res.sendStatus(404)
@@ -109,6 +110,18 @@ export class PostsController {
 
         const post = await this.postsService.givePostById(req.params.id)
         return res.status(204).send(post)
+    }
+
+    async updateLikeStatus(req: Request, res: Response) {
+        const post = await this.postsService.givePostById(req.params.id)
+
+        if (!post) {
+            return res.sendStatus(404)
+        }
+
+        await this.postsService.updateLikesInfo(req.user!.id, req.params.id, req.body.likeStatus)
+
+        return res.sendStatus(204)
     }
 
     async deletePostByPostId(req: RequestWithParams<URIParameters>,

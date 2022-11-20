@@ -25,7 +25,7 @@ export class CommentBDConstructor {
 
 export type CommentsBDType = CommentBDConstructor[]
 
-export class CommentsViewModel {
+export class CommentViewModel {
     constructor(
         public id: string,
         public content: string,

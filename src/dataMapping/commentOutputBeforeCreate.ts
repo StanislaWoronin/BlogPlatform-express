@@ -1,6 +1,6 @@
-import {CommentBDConstructor, CommentsViewModel} from "../types/comment-constructor";
+import {CommentBDConstructor, CommentViewModel} from "../types/comment-constructor";
 
-export const commentOutputBeforeCreate = (comment: CommentBDConstructor): CommentsViewModel => {
+export const commentOutputBeforeCreate = (comment: CommentBDConstructor): CommentViewModel => {
     return {
         id: comment.id,
         content: comment.content,

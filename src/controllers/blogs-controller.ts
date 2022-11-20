@@ -61,8 +61,7 @@ export class BlogsController {
                 req.query.sortDirection,
                 req.query.pageNumber,
                 req.query.pageSize,
-                req.params.id)
-
+                req.headers.authorization)
         res.status(200).send(pageWithPosts)
     }
 

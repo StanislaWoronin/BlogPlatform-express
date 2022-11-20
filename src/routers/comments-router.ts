@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {deleteCommentByIdMiddleware,
-        likeStatusMiddleware,
+        commentsLikesMiddleware,
         updateCommentMiddleware} from "../middlewares/commentsRouter-middleware";
 import {container} from "../composition-root";
 import {CommentsController} from "../controllers/comments-controller";
@@ -10,13 +10,13 @@ const commentsController = container.resolve(CommentsController)
 
 export const commentsRouter = Router({})
 
-commentsRouter.get('/:id', commentsController.getCommentByCommentId.bind(commentsController))
+commentsRouter.get('/:id', commentsController.getCommentById.bind(commentsController))
 
 commentsRouter.put('/:id',
     ...updateCommentMiddleware, commentsController.updateCommentByCommentId.bind(commentsController))
 
 commentsRouter.put('/:id/like-status',
-    ...likeStatusMiddleware, commentsController.updateLikeStatus.bind(commentsController))
+    ...commentsLikesMiddleware, commentsController.updateLikeStatus.bind(commentsController))
 
 commentsRouter.delete('/:id',
     ...deleteCommentByIdMiddleware, commentsController.deleteCommentByCommentId.bind(commentsController))

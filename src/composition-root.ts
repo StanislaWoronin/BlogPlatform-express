@@ -23,88 +23,7 @@ import {PostsController} from "./controllers/posts-controller";
 import {SecurityController} from "./controllers/security-controller";
 import {TestingController} from "./controllers/testing-controller";
 import {Container} from "inversify";
-
-// const objects: any = []
-//
-// const blogsRepository = new BlogsRepository()
-// const commentsRepository = new CommentsRepository()
-// const emailConfirmationRepository = new EmailConfirmationRepository()
-// const ipAddressRepository = new IpAddressRepository()
-// const jwtBlackList = new JWTBlackList()
-// const likesRepository = new LikesRepository()
-// const postsRepository = new PostsRepository()
-// const securityRepository = new SecurityRepository()
-// const usersRepository = new UsersRepository()
-//
-// objects.push(
-//     blogsRepository,
-//     commentsRepository,
-//     emailConfirmationRepository,
-//     ipAddressRepository,
-//     jwtBlackList,
-//     likesRepository,
-//     postsRepository,
-//     securityRepository,
-//     usersRepository)
-//
-// const authService = new AuthService(usersRepository)
-// const blogsService = new BlogsService(blogsRepository)
-// const jwtService = new JWTService(jwtBlackList)
-// const commentsService = new CommentsService(
-//     jwtService,
-//     commentsRepository,
-//     likesRepository)
-// const postsService = new PostsService(postsRepository, blogsRepository)
-// const securityService = new SecurityService(
-//     jwtService,
-//     securityRepository)
-// const usersService = new UsersService(usersRepository, authService)
-//
-// objects.push(
-//     authService,
-//     blogsService,
-//     jwtService,
-//     commentsService,
-//     postsService,
-//     securityService,
-//     usersService)
-//
-// const authController = new AuthController(
-//     authService,
-//     jwtService,
-//     securityService,
-//     usersService)
-// const blogsController = new BlogsController(blogsService, postsService)
-// const commentsController = new CommentsController(commentsService, usersService)
-// const postController = new PostsController(postsService, commentsService)
-// const securityController = new SecurityController(securityService)
-// const testingController = new TestingController(
-//     blogsRepository,
-//     commentsRepository,
-//     emailConfirmationRepository,
-//     ipAddressRepository,
-//     jwtBlackList,
-//     likesRepository,
-//     postsRepository,
-//     securityRepository,
-//     usersRepository)
-// const usersController = new UsersController(usersService)
-//
-// objects.push(
-//     authController,
-//     blogsController,
-//     commentsController,
-//     postController,
-//     securityController,
-//     testingController,
-//     usersController)
-//
-// export const ioc = {
-//     getInstance<T>(ClassType: any) {
-//         const targetInstance = objects.find((o: any) => o instanceof ClassType)
-//         return targetInstance as T
-//     }
-// }
+import {LikesService} from "./domain/likes-service";
 
 export const container = new Container()
 container.bind(AuthController).toSelf()
@@ -125,6 +44,7 @@ container.bind<IpAddressRepository>(IpAddressRepository).to(IpAddressRepository)
 container.bind<JWTService>(JWTService).to(JWTService)
 container.bind<JWTBlackList>(JWTBlackList).to(JWTBlackList)
 
+container.bind<LikesService>(LikesService).to(LikesService)
 container.bind<LikesRepository>(LikesRepository).to(LikesRepository)
 
 container.bind(PostsController).to(PostsController)
