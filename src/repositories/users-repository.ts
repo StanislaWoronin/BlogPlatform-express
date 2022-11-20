@@ -34,7 +34,7 @@ export class UsersRepository {
     async getLogin(id: string): Promise<string | null> {
         try {
             return UserScheme
-                .findOne({id}, {_id: false, email: false, passwordHash: false, passwordSalt: false, createdAt: false})
+                .findOne({id}, {_id: false, id: false, email: false, passwordHash: false, passwordSalt: false, createdAt: false, __v: false})
                 .lean()
         } catch (e) {
             return null

@@ -92,13 +92,13 @@ export class PostsService {
 
     async updateLikesInfo(userId: string, commentId: string, likeStatus: string): Promise<boolean> {
         const addedAt = new Date().toISOString()
-        const login = await this.usersRepository.getLogin(userId)
+        const login = await this.usersRepository.giveUserByIdOrLoginOrEmail(userId)
 
         if (!login) {
             return false
         }
 
-        return await this.likesRepository.updateUserReaction(commentId, userId, likeStatus, addedAt, login!)
+        return await this.likesRepository.updateUserReaction(commentId, userId, likeStatus, addedAt, login.login)
     }
 
     async deletePostById(id: string): Promise<boolean> {
@@ -107,7 +107,9 @@ export class PostsService {
 
     private async addLikesInfoForPost(post: PostConstructor, userId: string | null): Promise<PostViewModel> {
         const result = await this.likesService.getReactionAndReactionCount(post.id, userId!)
+        console.log(result)
         const newestLikes = await this.likesRepository.getNewestLikes(post.id)
+        console.log(newestLikes)
 
         return {
             id: post.id,
