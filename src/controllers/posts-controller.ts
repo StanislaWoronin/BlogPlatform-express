@@ -27,7 +27,6 @@ export class PostsController {
                 req.query.sortDirection,
                 req.query.pageNumber,
                 req.query.pageSize,
-                req.query.blogId,
                 req.headers.authorization)
 
         if (!pageWithPosts) {

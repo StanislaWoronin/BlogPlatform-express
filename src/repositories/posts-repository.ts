@@ -21,7 +21,7 @@ export class PostsRepository {
                     blogId: string | undefined): Promise<PostsConstructor> {
 
         return PostsScheme
-            .find({blogId: {$regex: blogId ? blogId : '', $options: 'i'}}, {projection: {_id: false}})
+            .find({blogId: {$regex: blogId ? blogId : ''}}, {_id: false})
             .sort({[sortBy]: sortDirection === 'asc' ? 1 : -1})
             .skip(giveSkipNumber(pageNumber, pageSize))
             .limit(Number(pageSize))
@@ -29,7 +29,8 @@ export class PostsRepository {
     }
 
     async giveTotalCount(blogId: string | undefined): Promise<number> {
-        return PostsScheme.countDocuments({blogId: {$regex: blogId ? blogId : '', $options: 'i'}})
+        //console.log(blogId)
+        return PostsScheme.countDocuments({blogId: {$regex: blogId ? blogId : ''}})
     }
 
     async givePostById(postId: string): Promise<PostConstructor | null> {

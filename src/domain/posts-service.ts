@@ -60,7 +60,7 @@ export class PostsService {
                         pageSize: string,
                         blogId?: string,
                         token?: string): Promise<ContentPageConstructor> {
-
+        console.log(blogId)
         const postsDB = await this.postsRepository.givePosts(sortBy, sortDirection, pageNumber, pageSize, blogId)
         const totalCount = await this.postsRepository.giveTotalCount(blogId)
 
@@ -107,9 +107,7 @@ export class PostsService {
 
     private async addLikesInfoForPost(post: PostConstructor, userId: string | null): Promise<PostViewModel> {
         const result = await this.likesService.getReactionAndReactionCount(post.id, userId!)
-        console.log(result)
         const newestLikes = await this.likesRepository.getNewestLikes(post.id)
-        console.log(newestLikes)
 
         return {
             id: post.id,
