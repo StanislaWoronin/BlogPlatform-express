@@ -58,12 +58,11 @@ export class PostsService {
                         sortDirection: 'asc' | 'desc',
                         pageNumber: string,
                         pageSize: string,
-                        blogId?: string,
-                        token?: string): Promise<ContentPageConstructor> {
+                        blogId: string,
+                        token?: string | undefined): Promise<ContentPageConstructor> {
 
         const postsDB = await this.postsRepository.givePosts(sortBy, sortDirection, pageNumber, pageSize, blogId)
         const totalCount = await this.postsRepository.giveTotalCount(blogId)
-
         const userId = await this.jwtService.getUserIdFromToken(token)
         const posts = await Promise.all(postsDB.map(async p => await this.addLikesInfoForPost(p, userId)))
 

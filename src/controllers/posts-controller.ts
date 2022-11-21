@@ -22,13 +22,15 @@ export class PostsController {
 
     async getPostsPage(req: RequestWithQuery<QueryParameters>,
                        res: Response<ContentPageConstructor>) {
+        const blogId = ''
         const pageWithPosts: ContentPageConstructor = await this.postsService
             .givePostsPage(req.query.sortBy,
                 req.query.sortDirection,
                 req.query.pageNumber,
                 req.query.pageSize,
+                blogId,
                 req.headers.authorization)
-        // TODO посмотреть где ошибка
+
         if (!pageWithPosts) {
             return res.sendStatus(404)
         }
